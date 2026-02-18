@@ -1,14 +1,96 @@
 <!DOCTYPE html>
-<html>
+<html lang="ko">
 <head>
+    <meta charset="UTF-8">
     <title>Luke Kim's Physics</title>
     <style>
-        body { font-family: sans-serif; text-align: center; padding-top: 50px; }
-        h1 { color: #2c3e50; }
+        /* 1. 기본 레이아웃 설정 */
+        body { font-family: 'Inter', sans-serif; line-height: 1.6; margin: 0; display: flex; flex-direction: column; }
+        header { background: #2c3e50; color: white; padding: 1rem; position: sticky; top: 0; z-index: 100; }
+        
+        .container { display: flex; max-width: 1200px; margin: 0 auto; padding: 20px; gap: 40px; }
+
+        /* 2. 본문 영역 */
+        main { flex: 3; }
+        section { margin-bottom: 100px; min-height: 500px; } /* 스크롤 확인용 높이 */
+        h2 { border-bottom: 2px solid #eee; padding-bottom: 10px; }
+
+        /* 3. 오른쪽 소목차 (Sticky Sidebar) */
+        aside { flex: 1; position: sticky; top: 80px; align-self: flex-start; height: fit-content; }
+        .toc { border-left: 2px solid #ddd; padding-left: 20px; }
+        .toc ul { list-style: none; padding: 0; }
+        .toc li { margin-bottom: 10px; }
+        .toc a { text-decoration: none; color: #666; transition: 0.3s; }
+        
+        /* 현재 위치 강조 스타일 */
+        .toc a.active { color: #3498db; font-weight: bold; }
     </style>
 </head>
 <body>
-    <h1>안녕하세요, 김루크의 물리 웹사이트입니다.</h1>
-    <p>배너 없는 깔끔한 사이트 제작 중!</p>
+
+<header>
+    <strong>Luke Physics</strong> | Home | Projects | About
+</header>
+
+<div class="container">
+    <main>
+        <section id="intro">
+            <h2>1. 서론 (Introduction)</h2>
+            <p>여기에 물리 연구의 서론 내용을 적습니다...</p>
+        </section>
+
+        <section id="theory">
+            <h2>2. 이론적 배경 (Theory)</h2>
+            <p>수식과 이론을 설명하는 구간입니다. $E = mc^2$ 같은 내용을 넣을 수 있죠.</p>
+        </section>
+
+        <section id="experiment">
+            <h2>3. 실험 방법 (Experiment)</h2>
+            <p>실험 장치와 과정에 대해 설명합니다...</p>
+        </section>
+
+        <section id="result">
+            <h2>4. 결과 및 고찰 (Results)</h2>
+            <p>측정된 데이터와 그래프를 분석합니다...</p>
+        </section>
+    </main>
+
+    <aside>
+        <nav class="toc">
+            <h3>On this page</h3>
+            <ul>
+                <li><a href="#intro" class="toc-link">서론</a></li>
+                <li><a href="#theory" class="toc-link">이론적 배경</a></li>
+                <li><a href="#experiment" class="toc-link">실험 방법</a></li>
+                <li><a href="#result" class="toc-link">결과 및 고찰</a></li>
+            </ul>
+        </nav>
+    </aside>
+</div>
+
+<script>
+    // 4. 스크롤 감지 및 메뉴 강조 (ScrollSpy)
+    const links = document.querySelectorAll('.toc-link');
+    const sections = document.querySelectorAll('section');
+
+    window.addEventListener('scroll', () => {
+        let current = '';
+        sections.forEach(section => {
+            const sectionTop = section.offsetTop;
+            const sectionHeight = section.clientHeight;
+            if (pageYOffset >= (sectionTop - 100)) {
+                current = section.getAttribute('id');
+            }
+        });
+
+        links.forEach(link => {
+            link.classList.remove('active');
+            if (link.getAttribute('href').includes(current)) {
+                link.classList.add('active');
+            }
+        });
+    });
+</script>
+
 </body>
 </html>

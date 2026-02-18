@@ -206,17 +206,28 @@
         }
     }
 
-    // 4. 엔터키 누르면 Google 검색 실행
-    searchInput.addEventListener('keypress', function(e) {
-        if (e.key === 'Enter') {
-            const query = encodeURIComponent(searchInput.value);
-            // 내 사이트 내에서만 검색하도록 설정
+    // 4. 엔터키 누르면 검색 실행
+searchInput.addEventListener('keypress', function(e) {
+    if (e.key === 'Enter') {
+        const query = searchInput.value.trim();
+        if (!query) return;
+
+        // 구글로 가는 대신, 현재 페이지 내에서 텍스트 찾기 기능
+        if (window.find) {
+            const found = window.find(query);
+            if (!found) {
+                alert("페이지 내에서 해당 단어를 찾을 수 없습니다.");
+            }
+        } else {
+            // 구글 검색으로 보조 (브라우저 호환성 대비)
             const siteUrl = "Luke-Kim-Physics.github.io";
             window.open(`https://www.google.com/search?q=site:${siteUrl}+${query}`);
-            searchModal.style.display = 'none';
-            searchInput.value = ""; // 검색어 초기화
         }
-    });
+        
+        searchModal.style.display = 'none';
+        searchInput.value = "";
+    }
+});
 </script>
     
 </body>

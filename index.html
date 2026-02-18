@@ -220,6 +220,17 @@
             resultsContainer.innerHTML = "<p style='color:#999;'>결과가 없습니다.</p>";
         }
     });
+
+window.addEventListener('DOMContentLoaded', () => {
+    const params = new URLSearchParams(window.location.search);
+    const q = params.get('q');
+    if (q) {
+        // 페이지 로드 후 0.5초 뒤에 단어 찾기 실행 (디자인 로딩 시간 고려)
+        setTimeout(() => {
+            window.find(q);
+        }, 500);
+    }
+});
 </script>
 
     
